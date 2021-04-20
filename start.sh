@@ -1,0 +1,1 @@
+docker build -t dinhpv/nestjs-start-kit:1.0 . && docker run -d -p 3000:3000 dinhpv/nestjs-start-kit:1.0
