@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsAlphanumeric,
   IsNumber,
   IsNotEmpty,
   MinLength,
@@ -8,11 +7,11 @@ import {
   Min,
   Max,
   IsString,
+  IsNumberString,
 } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty()
-  @IsAlphanumeric()
   @IsNotEmpty()
   @MinLength(1)
   @MaxLength(256)
@@ -25,10 +24,8 @@ export class CreateUserDto {
   age: number;
 
   @ApiProperty()
-  @IsNumber()
-  @Min(1)
-  @Max(11)
-  phone: number;
+  @IsNumberString()
+  phone: string;
 
   @ApiProperty()
   @IsString()
