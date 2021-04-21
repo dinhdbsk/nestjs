@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    env_file:
+      - ./.env
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - nesjs-network
+    depends_on:
+      - adminer
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_USER: dinhpv
+      POSTGRES_DB: nest_demo
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - nesjs-network
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - nesjs-network
+    depends_on:
+      - db
+networks:
+  nesjs-network:
