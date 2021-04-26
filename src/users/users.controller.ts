@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { User } from '../entity/user.entity';
 import {
   ApiTags,
   ApiCreatedResponse,
@@ -25,9 +25,10 @@ import { FindOneParams } from './dto/FindOneParams.dto';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
+  // @ts-ignore
   @ApiOkResponse({ type: User, isArray: true })
   @Get()
-  @ApiQuery({ name: 'name', required: false })
+  @ApiQuery({ name: 'name'})
   getUsers(@Query('name') name?: string): User[] {
     return this.userService.findAll(name);
   }

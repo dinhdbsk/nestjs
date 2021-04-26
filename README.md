@@ -35,6 +35,9 @@ $ npm install
 ## Running the app
 
 ```bash
+# before start and change config
+$ cp .env.example .env
+
 # development
 $ npm run start
 
