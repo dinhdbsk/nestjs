@@ -25,10 +25,9 @@ import { FindOneParams } from './dto/FindOneParams.dto';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  // @ts-ignore
   @ApiOkResponse({ type: User, isArray: true })
   @Get()
-  @ApiQuery({ name: 'name'})
+  @ApiQuery({ name: 'name' })
   getUsers(@Query('name') name?: string): User[] {
     return this.userService.findAll(name);
   }
@@ -38,7 +37,7 @@ export class UsersController {
   @ApiBadRequestResponse()
   @Get(':id')
   getUserById(@Param() params: FindOneParams): User {
-    let user = this.userService.findById(params.id);
+    const user = this.userService.findById(params.id);
     if (!user) {
       throw new NotFoundException('User is not found');
     }
@@ -49,7 +48,6 @@ export class UsersController {
   @ApiBadRequestResponse()
   @Post()
   createUser(@Body() body: CreateUserDto): User {
-    const newUser = this.userService.createUser(body);
-    return newUser;
+    return this.userService.createUser(body);
   }
 }
